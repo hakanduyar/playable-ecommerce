@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import { User } from '@/types';
 import { api } from '@/lib/api';
 
@@ -30,7 +30,9 @@ export const useAuthStore = create<AuthState>()(
               token: response.data.token,
               isLoading: false,
             });
-            localStorage.setItem('token', response.data.token);
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('token', response.data.token);
+            }
           }
         } catch (error) {
           set({ isLoading: false });
@@ -48,7 +50,9 @@ export const useAuthStore = create<AuthState>()(
               token: response.data.token,
               isLoading: false,
             });
-            localStorage.setItem('token', response.data.token);
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('token', response.data.token);
+            }
           }
         } catch (error) {
           set({ isLoading: false });
@@ -57,7 +61,9 @@ export const useAuthStore = create<AuthState>()(
       },
 
       logout: () => {
-        localStorage.removeItem('token');
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('token');
+        }
         set({ user: null, token: null });
       },
 
@@ -74,6 +80,13 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'auth-storage',
+      storage: createJSONStorage(() => 
+        typeof window !== 'undefined' ? localStorage : {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        }
+      ),
     }
   )
 );
