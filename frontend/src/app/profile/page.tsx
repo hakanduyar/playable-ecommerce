@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
 import { User, Mail, Phone } from 'lucide-react';
