@@ -1,17 +1,15 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import { useProducts } from '@/hooks/useProducts';
 import { useCategories } from '@/hooks/useCategories';
 
 export default function ProductsPage() {
-  const searchParams = useSearchParams();
-  const categoryId = searchParams.get('category');
-  
   const [filters, setFilters] = useState({
-    category: categoryId || '',
+    category: '',
     minPrice: '',
     maxPrice: '',
     sortBy: 'createdAt',
@@ -20,12 +18,6 @@ export default function ProductsPage() {
 
   const { products, isLoading } = useProducts(filters);
   const { categories } = useCategories();
-
-  useEffect(() => {
-    if (categoryId) {
-      setFilters(prev => ({ ...prev, category: categoryId }));
-    }
-  }, [categoryId]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
