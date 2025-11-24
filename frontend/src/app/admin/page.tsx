@@ -13,26 +13,27 @@ import {
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
-  orders: {
-    totalOrders: 0,
-    pendingOrders: 0,
-    processingOrders: 0,
-    deliveredOrders: 0,
-    cancelledOrders: 0,
-    totalSales: 0,
-    recentOrders: [],
-  },
-  products: {
-    totalProducts: 0,
-    activeProducts: 0,
-    outOfStock: 0,
-    lowStock: 0,
-  },
-  customers: {
-    totalCustomers: 0,
-    newCustomers: 0,
-  },
-});t [isLoading, setIsLoading] = useState(true);
+    orders: {
+      totalOrders: 0,
+      pendingOrders: 0,
+      processingOrders: 0,
+      deliveredOrders: 0,
+      cancelledOrders: 0,
+      totalSales: 0,
+      recentOrders: [],
+    },
+    products: {
+      totalProducts: 0,
+      activeProducts: 0,
+      outOfStock: 0,
+      lowStock: 0,
+    },
+    customers: {
+      totalCustomers: 0,
+      newCustomers: 0,
+    },
+  });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
